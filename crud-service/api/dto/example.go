@@ -1,6 +1,6 @@
 package dto
 
-import "core/domain/entities"
+import "crud-service/domain/entities"
 
 // request
 type GetExamplesRequest struct {

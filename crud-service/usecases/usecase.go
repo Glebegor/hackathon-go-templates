@@ -3,9 +3,9 @@ package usecase
 import (
 	"log/slog"
 
-	"core/bootstrap"
-	"core/domain/commons/interfaces"
-	repository "core/repositories"
+	"crud-service/bootstrap"
+	"crud-service/domain/commons/interfaces"
+	repository "crud-service/repositories"
 )
 
 type Usecases struct {

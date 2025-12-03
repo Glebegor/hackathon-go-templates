@@ -4,9 +4,9 @@ import (
 	"log/slog"
 	"net/http"
 
-	"core/api/dto"
-	"core/bootstrap"
-	"core/domain/commons/interfaces"
+	"crud-service/api/dto"
+	"crud-service/bootstrap"
+	"crud-service/domain/commons/interfaces"
 
 	"github.com/gin-gonic/gin"
 )

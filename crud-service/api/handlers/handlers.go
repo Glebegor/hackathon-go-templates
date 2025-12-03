@@ -3,9 +3,9 @@ package handlers
 import (
 	"log/slog"
 
-	"core/bootstrap"
-	"core/domain/commons/interfaces"
-	usecase "core/usecases"
+	"crud-service/bootstrap"
+	"crud-service/domain/commons/interfaces"
+	usecase "crud-service/usecases"
 )
 
 type Handlers struct {
