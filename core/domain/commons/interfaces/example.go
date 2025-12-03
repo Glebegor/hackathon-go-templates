@@ -1,8 +1,19 @@
 package interfaces
 
-import "github.com/Glebegor/hackathon-go-templates/domain/entities"
+import (
+	"github.com/Glebegor/hackathon-go-templates/domain/entities"
+	"github.com/gin-gonic/gin"
+)
 
-type ExampleRepository interface {
+type IExampleHandler interface {
+	GetAllExamples(c *gin.Context)
+	GetByID(c *gin.Context)
+	CreateExample(c *gin.Context)
+	UpdateExample(c *gin.Context)
+	DeleteExample(c *gin.Context)
+}
+
+type IExampleRepository interface {
 	GetAllExamples() ([]*entities.ExampleEntity, error)
 	GetByID(id int) (*entities.ExampleEntity, error)
 	CreateExample(example *entities.ExampleEntity) error
@@ -10,7 +21,7 @@ type ExampleRepository interface {
 	DeleteExample(id int) error
 }
 
-type ExampleUsecase interface {
+type IExampleUsecase interface {
 	GetAllExamples() ([]*entities.ExampleEntity, error)
 	GetByID(id int) (*entities.ExampleEntity, error)
 	CreateExample(example *entities.ExampleEntity) error

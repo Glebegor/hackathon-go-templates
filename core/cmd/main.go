@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
 
+	"github.com/Glebegor/hackathon-go-templates/api/handlers"
 	"github.com/Glebegor/hackathon-go-templates/api/routers"
 	"github.com/Glebegor/hackathon-go-templates/bootstrap"
+	repositories "github.com/Glebegor/hackathon-go-templates/repositories"
+	usecase "github.com/Glebegor/hackathon-go-templates/usecases"
 )
 
 func main() {
@@ -26,11 +29,20 @@ func main() {
 		"env", config.Server.ENV,
 	)
 
+	// DB setup
+	db, err := bootstrap.NewGormDB(*&config.DbConfig, logger)
+	if err != nil {
+		logger.Error("failed to connect to database", "error", err)
+		panic(err)
+	}
+
 	// Dependencies setup
-	deps := routers.NewRouterDependencies(config, logger)
+	repos := repositories.NewRepositories(db, config, logger)
+	usecases := usecase.NewUsecases(config, logger, repos)
+	handlers := handlers.NewHandlers(config, logger, usecases)
 
 	// Router setup
-	router := routers.NewRouter(deps, config.Server.ENV)
+	router := routers.NewRouter(handlers, config.Server.ENV)
 
 	// Config init
 	server := bootstrap.NewServer(

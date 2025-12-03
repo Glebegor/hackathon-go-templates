@@ -6,17 +6,17 @@ import (
 
 	"github.com/Glebegor/hackathon-go-templates/api/dto"
 	"github.com/Glebegor/hackathon-go-templates/bootstrap"
-	"github.com/Glebegor/hackathon-go-templates/domain/interfaces"
+	"github.com/Glebegor/hackathon-go-templates/domain/commons/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
 type ExampleHandler struct {
-	usecase *interfaces.ExampleUsecase
+	usecase interfaces.IExampleUsecase
 	logger  *slog.Logger
 	config  *bootstrap.Config
 }
 
-func NewExampleHandler(config *bootstrap.Config, usecase *interfaces.ExampleUsecase, logger *slog.Logger) *ExampleHandler {
+func NewExampleHandler(config *bootstrap.Config, usecase interfaces.IExampleUsecase, logger *slog.Logger) interfaces.IExampleHandler {
 	return &ExampleHandler{
 		config:  config,
 		usecase: usecase,
@@ -24,16 +24,46 @@ func NewExampleHandler(config *bootstrap.Config, usecase *interfaces.ExampleUsec
 	}
 }
 
-func (h *ExampleHandler) SetupHandlers(rg *gin.RouterGroup) {
-	exampleGroup := rg.Group("/examples")
-	{
-		exampleGroup.GET("/", h.GetAllExamples)
-	}
-}
-
 // Methods
 func (h *ExampleHandler) GetAllExamples(c *gin.Context) {
 	h.logger.Info("GetExamples called")
+
+	// Implementation here
+
+	c.JSON(http.StatusOK, dto.GetExamplesResponse{
+		Examples: nil,
+	})
+}
+
+func (h *ExampleHandler) GetByID(c *gin.Context) {
+	h.logger.Info("GetByID called")
+
+	// Implementation here
+
+	c.JSON(http.StatusOK, dto.GetExamplesResponse{
+		Examples: nil,
+	})
+}
+func (h *ExampleHandler) CreateExample(c *gin.Context) {
+	h.logger.Info("CreateExample called")
+
+	// Implementation here
+
+	c.JSON(http.StatusOK, dto.GetExamplesResponse{
+		Examples: nil,
+	})
+}
+func (h *ExampleHandler) UpdateExample(c *gin.Context) {
+	h.logger.Info("UpdateExample called")
+
+	// Implementation here
+
+	c.JSON(http.StatusOK, dto.GetExamplesResponse{
+		Examples: nil,
+	})
+}
+func (h *ExampleHandler) DeleteExample(c *gin.Context) {
+	h.logger.Info("DeleteExample called")
 
 	// Implementation here
 

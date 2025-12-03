@@ -1,0 +1,7 @@
+bin
+
+.dev.env
+.prod.env
+
+__cache__
+*.log

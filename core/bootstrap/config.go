@@ -10,7 +10,7 @@ import (
 
 type Config struct {
 	Server   ServerConfig `json:"server"`
-	DbConfig DbConfig     `json:"db"`
+	DbConfig DbConfig
 }
 
 type ServerConfig struct {
@@ -23,6 +23,7 @@ type ServerConfig struct {
 }
 
 type DbConfig struct {
+	DbUrl string // from env
 }
 
 func loadFromJSON(path string, cfg *Config) error {
@@ -53,6 +54,8 @@ func loadFromENV(cfg *Config, envType string) error {
 	cfg.Server.SECRET = os.Getenv("SERVER_SECRET")
 	cfg.Server.ENV = os.Getenv("SERVER_ENV")
 	cfg.Server.LEVEL = os.Getenv("SERVER_LEVEL")
+	cfg.DbConfig.DbUrl = os.Getenv("DB_URL")
+
 	return nil
 }
 

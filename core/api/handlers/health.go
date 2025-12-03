@@ -4,6 +4,7 @@ import (
 	"log/slog"
 
 	"github.com/Glebegor/hackathon-go-templates/bootstrap"
+	"github.com/Glebegor/hackathon-go-templates/domain/commons/interfaces"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,17 +13,10 @@ type HealthHandler struct {
 	config *bootstrap.Config
 }
 
-func NewHealthHandler(config *bootstrap.Config, logger *slog.Logger) *HealthHandler {
+func NewHealthHandler(config *bootstrap.Config, logger *slog.Logger) interfaces.IHealthHandler {
 	return &HealthHandler{
 		logger: logger,
 		config: config,
-	}
-}
-
-func (h *HealthHandler) SetupHandlers(rg *gin.RouterGroup) {
-	healthGroup := rg.Group("/health")
-	{
-		healthGroup.GET("/", h.CheckHealth)
 	}
 }
 
