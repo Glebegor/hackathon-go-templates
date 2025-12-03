@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"core/domain/commons/interfaces"
-	"core/domain/entities"
+	"crud-service/domain/commons/interfaces"
+	"crud-service/domain/entities"
 )
 
 type ExampleUsecase struct {

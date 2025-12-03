@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 
-	"core/api/handlers"
-	"core/api/routers"
-	"core/bootstrap"
-	repositories "core/repositories"
-	usecase "core/usecases"
+	"crud-service/api/handlers"
+	"crud-service/api/routers"
+	"crud-service/bootstrap"
+	repositories "crud-service/repositories"
+	usecase "crud-service/usecases"
 )
 
 func main() {

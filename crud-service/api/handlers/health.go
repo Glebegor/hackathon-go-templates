@@ -3,8 +3,8 @@ package handlers
 import (
 	"log/slog"
 
-	"core/bootstrap"
-	"core/domain/commons/interfaces"
+	"crud-service/bootstrap"
+	"crud-service/domain/commons/interfaces"
 
 	"github.com/gin-gonic/gin"
 )

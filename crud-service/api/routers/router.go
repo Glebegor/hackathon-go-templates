@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"core/api/handlers"
-	"core/api/middleware"
+	"crud-service/api/handlers"
+	"crud-service/api/middleware"
 
 	"github.com/gin-gonic/gin"
 )

@@ -3,8 +3,8 @@ package repository
 import (
 	"log/slog"
 
-	"core/bootstrap"
-	"core/domain/commons/interfaces"
+	"crud-service/bootstrap"
+	"crud-service/domain/commons/interfaces"
 
 	"gorm.io/gorm"
 )
