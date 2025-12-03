@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/Glebegor/hackathon-go-templates/api/routers"
 	"github.com/Glebegor/hackathon-go-templates/bootstrap"
 )
 
@@ -25,10 +26,16 @@ func main() {
 		"env", config.Server.ENV,
 	)
 
+	// Dependencies setup
+	deps := routers.NewRouterDependencies(config, logger)
+
+	// Router setup
+	router := routers.NewRouter(deps, config.Server.ENV)
+
 	// Config init
 	server := bootstrap.NewServer(
 		fmt.Sprintf("%s:%d", config.Server.HOST, config.Server.PORT),
-		nil, // TODO: replace with actual router
+		router,
 	)
 
 	// Create app
