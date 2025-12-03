@@ -19,6 +19,7 @@ type ServerConfig struct {
 	NAME   string `json:"name"`
 	SECRET string // from env
 	ENV    string // from env
+	LEVEL  string // from env
 }
 
 type DbConfig struct {
@@ -51,6 +52,7 @@ func loadFromENV(cfg *Config, envType string) error {
 
 	cfg.Server.SECRET = os.Getenv("SERVER_SECRET")
 	cfg.Server.ENV = os.Getenv("SERVER_ENV")
+	cfg.Server.LEVEL = os.Getenv("SERVER_LEVEL")
 	return nil
 }
 
