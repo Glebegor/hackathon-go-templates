@@ -17,16 +17,16 @@ func NewExampleUsecase(repo interfaces.IExampleRepository) interfaces.IExampleUs
 
 // Methods
 
-func (u *ExampleUsecase) GetAllExamples() ([]*entities.ExampleEntity, error) {
+func (u *ExampleUsecase) GetAllExamples() ([]entities.ExampleEntity, error) {
 	return u.repo.GetAllExamples()
 }
-func (u *ExampleUsecase) GetByID(id int) (*entities.ExampleEntity, error) {
+func (u *ExampleUsecase) GetByID(id int) (entities.ExampleEntity, error) {
 	return u.repo.GetByID(id)
 }
-func (u *ExampleUsecase) CreateExample(example *entities.ExampleEntity) error {
+func (u *ExampleUsecase) CreateExample(example entities.ExampleEntity) error {
 	return u.repo.CreateExample(example)
 }
-func (u *ExampleUsecase) UpdateExample(example *entities.ExampleEntity) error {
+func (u *ExampleUsecase) UpdateExample(example entities.ExampleEntity) (int, error) {
 	return u.repo.UpdateExample(example)
 }
 func (u *ExampleUsecase) DeleteExample(id int) error {

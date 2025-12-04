@@ -7,6 +7,8 @@ build:
 	go build -o bin cmd/main.go
 prod:
 	bin/main
+
+
 	
 
 db-test-run:
@@ -14,3 +16,7 @@ db-test-run:
 db-test-stop:
 	docker stop hackathon-postgres
 	docker rm hackathon-postgres
+
+
+swagger:
+	swag init --dir cmd,./api,./domain --output ./api/docs

@@ -1,3 +1,8 @@
+// @title           CRUD Service API
+// @version         1.0
+// @description     This is the CRUD service for our hackathon template.
+// @BasePath        /api/v2
+
 package main
 
 import (
@@ -8,6 +13,8 @@ import (
 	"crud-service/bootstrap"
 	repositories "crud-service/repositories"
 	usecase "crud-service/usecases"
+
+	_ "crud-service/api/docs"
 )
 
 func main() {

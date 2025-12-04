@@ -15,17 +15,17 @@ type IExampleHandler interface {
 }
 
 type IExampleRepository interface {
-	GetAllExamples() ([]*entities.ExampleEntity, error)
-	GetByID(id int) (*entities.ExampleEntity, error)
-	CreateExample(example *entities.ExampleEntity) error
-	UpdateExample(example *entities.ExampleEntity) error
+	GetAllExamples() ([]entities.ExampleEntity, error)
+	GetByID(id int) (entities.ExampleEntity, error)
+	CreateExample(example entities.ExampleEntity) error
+	UpdateExample(example entities.ExampleEntity) (int, error)
 	DeleteExample(id int) error
 }
 
 type IExampleUsecase interface {
-	GetAllExamples() ([]*entities.ExampleEntity, error)
-	GetByID(id int) (*entities.ExampleEntity, error)
-	CreateExample(example *entities.ExampleEntity) error
-	UpdateExample(example *entities.ExampleEntity) error
+	GetAllExamples() ([]entities.ExampleEntity, error)
+	GetByID(id int) (entities.ExampleEntity, error)
+	CreateExample(example entities.ExampleEntity) error
+	UpdateExample(example entities.ExampleEntity) (int, error)
 	DeleteExample(id int) error
 }

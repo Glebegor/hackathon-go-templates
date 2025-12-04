@@ -5,6 +5,11 @@ import (
 	"crud-service/api/middleware"
 
 	"github.com/gin-gonic/gin"
+
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
+	_ "crud-service/api/docs"
 )
 
 func NewRouter(handlers *handlers.Handlers, env string) *gin.Engine {
@@ -18,23 +23,31 @@ func NewRouter(handlers *handlers.Handlers, env string) *gin.Engine {
 		r = gin.Default()
 	}
 
-	r.Use(middleware.CORS())
-
 	root := r.Group("/")
 	{
+
+		r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 		root.GET("/health", handlers.HealthHandler.CheckHealth)
+
 		api := root.Group("/api")
 		{
-			example := api.Group("/examples")
+			v1 := api.Group("/v2")
 			{
-				example.GET("/", handlers.ExampleHandler.GetAllExamples)
-				example.GET("/:id", handlers.ExampleHandler.GetByID)
-				example.POST("/", handlers.ExampleHandler.CreateExample)
-				example.PUT("/:id", handlers.ExampleHandler.UpdateExample)
-				example.DELETE("/:id", handlers.ExampleHandler.DeleteExample)
+				example := v1.Group("/examples")
+				{
+					example.GET("/", handlers.ExampleHandler.GetAllExamples)
+					example.GET("/:id", handlers.ExampleHandler.GetByID)
+					example.POST("/", handlers.ExampleHandler.CreateExample)
+					example.PUT("/:id", handlers.ExampleHandler.UpdateExample)
+					example.DELETE("/:id", handlers.ExampleHandler.DeleteExample)
+				}
 			}
 		}
 
 	}
+
+	r.Use(middleware.CORS())
+
 	return r
 }

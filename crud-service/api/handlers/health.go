@@ -6,6 +6,8 @@ import (
 	"crud-service/bootstrap"
 	"crud-service/domain/commons/interfaces"
 
+	"crud-service/api/dto"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,10 +24,11 @@ func NewHealthHandler(config *bootstrap.Config, logger *slog.Logger) interfaces.
 }
 
 // Methods
-func (h *HealthHandler) CheckHealth(c *gin.Context) {
-	h.logger.Info("CheckHealth called")
 
-	c.JSON(200, gin.H{
-		"status": "healthy",
+func (h *HealthHandler) CheckHealth(c *gin.Context) {
+
+	c.JSON(200, dto.SuccessResponse{
+		Message: "Service is healthy",
+		Status:  200,
 	})
 }
