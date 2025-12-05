@@ -2,19 +2,18 @@ package dto
 
 import (
 	"crud-service/domain/entities"
-	"time"
 )
 
 // request
+
 type CreateExampleRequest struct {
-	Name  string `json:"name"`
-	Count int    `json:"count"`
+	Name  string `json:"name" binding:"required,min=3,max=100"`
+	Count int    `json:"count" binding:"required,min=0"`
 }
 
 type UpdateExampleRequest struct {
-	Name       string    `json:"name"`
-	Count      int       `json:"count"`
-	Updated_at time.Time `json:"updated_at" gorm:"autoUpdateTime"`
+	Name  string `json:"name" binding:"required,min=3,max=100"`
+	Count int    `json:"count" binding:"required,min=0"`
 }
 
 type DeleteExampleRequest struct {

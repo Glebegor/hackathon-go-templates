@@ -2,8 +2,16 @@ basePath: /api/v2
 definitions:
   dto.CreateExampleRequest:
     properties:
-      example:
-        $ref: '#/definitions/entities.ExampleEntity'
+      count:
+        minimum: 0
+        type: integer
+      name:
+        maxLength: 100
+        minLength: 3
+        type: string
+    required:
+    - count
+    - name
     type: object
   dto.CreateExampleResponse:
     properties:
@@ -36,8 +44,16 @@ definitions:
     type: object
   dto.UpdateExampleRequest:
     properties:
-      example:
-        $ref: '#/definitions/entities.ExampleUpdateEntity'
+      count:
+        minimum: 0
+        type: integer
+      name:
+        maxLength: 100
+        minLength: 3
+        type: string
+    required:
+    - count
+    - name
     type: object
   dto.UpdateExampleResponse:
     properties:
@@ -51,15 +67,6 @@ definitions:
       created_at:
         type: string
       id:
-        type: integer
-      name:
-        type: string
-      updated_at:
-        type: string
-    type: object
-  entities.ExampleUpdateEntity:
-    properties:
-      count:
         type: integer
       name:
         type: string

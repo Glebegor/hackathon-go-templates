@@ -47,8 +47,15 @@ func (h *ExampleHandler) GetAllExamples(c *gin.Context) {
 	data, err := h.usecase.GetAllExamples()
 	if err != nil {
 		h.logger.Error("Failed to get all examples", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Internal server error"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusInternalServerError, dto.ErrorResponse{
-			Message: "Failed to get examples",
+			Message: mess,
 			Status:  http.StatusInternalServerError,
 		})
 		return
@@ -78,8 +85,15 @@ func (h *ExampleHandler) GetByID(c *gin.Context) {
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		h.logger.Error("Invalid id parameter", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Invalid id parameter"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Message: "Invalid id parameter",
+			Message: mess,
 			Status:  http.StatusBadRequest,
 		})
 		return
@@ -88,8 +102,15 @@ func (h *ExampleHandler) GetByID(c *gin.Context) {
 	data, err = h.usecase.GetByID(id)
 	if err != nil {
 		h.logger.Error("Failed to get example by ID", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Failed to get example"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusInternalServerError, dto.ErrorResponse{
-			Message: "Failed to get example",
+			Message: mess,
 			Status:  http.StatusInternalServerError,
 		})
 		return
@@ -115,11 +136,17 @@ func (h *ExampleHandler) CreateExample(c *gin.Context) {
 	var data entities.ExampleEntity
 	var r dto.CreateExampleRequest
 
-	err := c.ShouldBindJSON(&r)
-	if err != nil {
+	if err := c.ShouldBindJSON(&r); err != nil {
 		h.logger.Error("Failed to bind CreateExampleRequest", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Invalid request"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Message: "Invalid request",
+			Message: mess,
 			Status:  http.StatusBadRequest,
 		})
 		return
@@ -128,12 +155,19 @@ func (h *ExampleHandler) CreateExample(c *gin.Context) {
 	// map fields from DTO to entity
 	data.Name = r.Name
 	data.Count = r.Count
+	// CreatedAt / UpdatedAt / ID are set by DB / GORM
 
-	err = h.usecase.CreateExample(data)
-	if err != nil {
+	if err := h.usecase.CreateExample(data); err != nil {
 		h.logger.Error("Failed to create example", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Failed to create example"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusInternalServerError, dto.ErrorResponse{
-			Message: "Failed to create example",
+			Message: mess,
 			Status:  http.StatusInternalServerError,
 		})
 		return
@@ -162,37 +196,58 @@ func (h *ExampleHandler) UpdateExample(c *gin.Context) {
 
 	// parse id from path
 	idStr := c.Param("id")
-	_, err := strconv.Atoi(idStr)
+	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		h.logger.Error("Invalid id parameter", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Invalid id parameter"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Message: "Invalid id parameter",
+			Message: mess,
 			Status:  http.StatusBadRequest,
 		})
 		return
 	}
 
 	// bind request body
-	err = c.ShouldBindJSON(&r)
-	if err != nil {
+	if err := c.ShouldBindJSON(&r); err != nil {
 		h.logger.Error("Failed to bind UpdateExampleRequest", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Invalid request"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Message: "Invalid request",
+			Message: mess,
 			Status:  http.StatusBadRequest,
 		})
 		return
 	}
 
 	// map DTO to entity (populate ID from path)
+	data.Id = (uint)(id) // or data.Id = id, depending on your entity
 	data.Name = r.Name
 	data.Count = r.Count
+	// UpdatedAt should be handled by usecase/DB (gorm autoUpdateTime)
 
-	// call usecase to update
 	updatedID, err := h.usecase.UpdateExample(data)
 	if err != nil {
 		h.logger.Error("Failed to update example", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Failed to update example"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusInternalServerError, dto.ErrorResponse{
-			Message: "Failed to update example",
+			Message: mess,
 			Status:  http.StatusInternalServerError,
 		})
 		return
@@ -220,8 +275,15 @@ func (h *ExampleHandler) DeleteExample(c *gin.Context) {
 	id, err := strconv.Atoi(idStr)
 	if err != nil {
 		h.logger.Error("Invalid id parameter", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Invalid id parameter"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusBadRequest, dto.ErrorResponse{
-			Message: "Invalid id parameter",
+			Message: mess,
 			Status:  http.StatusBadRequest,
 		})
 		return
@@ -230,8 +292,15 @@ func (h *ExampleHandler) DeleteExample(c *gin.Context) {
 	err = h.usecase.DeleteExample(id)
 	if err != nil {
 		h.logger.Error("Failed to delete example", slog.String("error", err.Error()))
+
+		var mess string
+		if h.config.Server.ENV == "prod" {
+			mess = "Failed to delete example"
+		} else {
+			mess = err.Error()
+		}
 		c.JSON(http.StatusInternalServerError, dto.ErrorResponse{
-			Message: "Failed to delete example",
+			Message: mess,
 			Status:  http.StatusInternalServerError,
 		})
 		return

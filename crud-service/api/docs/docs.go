@@ -241,9 +241,19 @@ const docTemplate = `{
     "definitions": {
         "dto.CreateExampleRequest": {
             "type": "object",
+            "required": [
+                "count",
+                "name"
+            ],
             "properties": {
-                "example": {
-                    "$ref": "#/definitions/entities.ExampleEntity"
+                "count": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 3
                 }
             }
         },
@@ -295,9 +305,19 @@ const docTemplate = `{
         },
         "dto.UpdateExampleRequest": {
             "type": "object",
+            "required": [
+                "count",
+                "name"
+            ],
             "properties": {
-                "example": {
-                    "$ref": "#/definitions/entities.ExampleUpdateEntity"
+                "count": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 3
                 }
             }
         },
@@ -319,20 +339,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "updated_at": {
-                    "type": "string"
-                }
-            }
-        },
-        "entities.ExampleUpdateEntity": {
-            "type": "object",
-            "properties": {
-                "count": {
                     "type": "integer"
                 },
                 "name": {
